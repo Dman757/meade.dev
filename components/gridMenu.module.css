@@ -1,0 +1,107 @@
+/* Concept
+
+Multibutton menu with a grid layout
+There's a overlapping grid in the background that denotes the hover state
+Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature=emb_title
+
+*/
+/* font color #dda940 */
+
+.CircleBack {
+  background-color: #ff2591;
+  height:calc(var(--offset-y)*6); 
+  width: calc(var(--offset-y)*6);;
+  border-radius: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.Main {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  margin: calc(var(--offset-y) * 1.5) 0;
+  /* row-gap: 15px;  */
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  /* --delay: transform .2s ease-in-out; */
+  /* --delay: 1s; */
+  /* transition: all 0.5s; */
+  /* --derp: 0, 0, 0; */
+}
+
+/* 16 + 16*2  */
+.Main > button {
+  color: #ffec41;
+  z-index: 10;
+  width: 100%;
+  line-height: 2rem;
+  border:none;
+  /* border-radius: 5px; */
+  background: transparent;
+  font-size: 2rem;
+  padding: .5rem;
+}
+
+.Main > button:nth-child(1) {
+  grid-row: 1/2;
+  grid-column: 1;
+}
+.Main > button:nth-child(2) {
+  grid-row: 2/3;
+  transform: translate3d(var(--offset-x), 0, 0);
+  grid-column: 1;
+}
+.Main > button:nth-child(3) {
+  grid-row: 3/4;
+  transform: translate3d(calc(var(--offset-x)*2), 0, 0);
+  grid-column: 1;
+}
+.Main > div:nth-child(4) {
+  z-index: 0;
+  box-sizing: border-box;
+  background-color: #1f1f1f;
+  transition: transform .2s ease-in-out;
+  transition-delay: var(--delay);
+  width: 110%;
+  transform: translate3d(var(--derp));
+  height: 3rem;
+  border:solid .1rem #1f1f1f;
+  grid-row: 1/2;
+  grid-column: 1;
+}
+
+.Main > button:hover ~ div:last-child,
+.Main > button:focus ~ div:last-child {
+  --delay: 0s;
+}
+
+.Main > button:nth-child(1):hover ~ div:last-child,
+.Main > button:nth-child(1):focus ~ div:last-child {
+  --derp: 0rem, 0rem, 0rem;
+}
+.Main > button:nth-child(2):hover ~ div:last-child,
+.Main > button:nth-child(2):focus ~ div:last-child{
+  --derp: var(--offset-x), var(--offset-y), 0;
+}
+.Main > button:nth-child(3):hover ~ div:last-child,
+.Main > button:nth-child(3):focus ~ div:last-child {
+  --derp: calc(var(--offset-x)* 2), calc(var(--offset-y) * 2), 0;
+}
+/* .Main > button:nth-child(4):hover ~ div:last-child,
+.Main > button:nth-child(4):focus ~ div:last-child {
+  --derp: calc(var(--offset-x)*3), calc(var(--offset-y)*4), 0;
+}
+.Main > button:nth-child(5):hover ~ div:last-child,
+.Main > button:nth-child(5):focus ~ div:last-child {
+  --derp: calc(var(--offset-x)*4), calc(var(--offset-y)*4), 0;
+}
+.Main > button:nth-child(6):hover ~ div:last-child,
+.Main > button:nth-child(6):focus ~ div:last-child {
+  --derp: calc(var(--offset-x)*5), calc(var(--offset-y)*5), 0;
+}
+.Main > button:nth-child(7):hover ~ div:last-child,
+.Main > button:nth-child(7):focus ~ div:last-child {
+  --derp: calc(var(--offset-x)*6), calc(var(--offset-y)*6), 0;
+} */
