@@ -24,7 +24,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   /* margin: calc(var(--offset-y) - 1rem) 0; */
   /* row-gap: 15px;  */
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr 1fr 2fr;
+  grid-template-rows: 2fr auto 2fr;
   align-items: center;
   /* --delay: transform .2s ease-in-out; */
   /* --delay: 1s; */
@@ -38,12 +38,12 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   color: #ffec41;
   z-index: 10;
   width: 100%;
-  line-height: 2rem;
+  line-height: var(--offset-y);
   border:none;
   /* border-radius: 5px; */
   background: transparent;
   font-size: 2rem;
-  padding: 1rem;
+  /* padding: 0.5rem; */
   transition: transform .1s ease-in-out;
   transition-delay: var(--delay);
 }
@@ -51,22 +51,22 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
 .Main > button:nth-child(1) {
   grid-row: 1/2;
   grid-column: 1;
-  padding-top: 3rem;
-  align-self: flex-end;
+  padding-top: var(--offset-y);
+  align-self: flex-start;
 }
 .Main > button:nth-child(2) {
   grid-row: 2/3;
   transform: translate3d(var(--offset-x), 0, 0);
   grid-column: 1;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 .Main > button:nth-child(3) {
   grid-row: 3/4;
   transform: translate3d(calc(var(--offset-x)*2), 0, 0);
   grid-column: 1;
   /* padding-bottom: var(--offset-y); */
-  padding-bottom: 3rem;
-  align-self: flex-start;
+  padding-bottom: var(--offset-y);
+  align-self: flex-end;
 }
 /* .Main > button:last-child {
   
@@ -74,13 +74,14 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
 
 .Main > div:nth-child(4) {
   z-index: 0;
+  align-self: flex-end;
   box-sizing: border-box;
   background-color: #1f1f1f;
   transition: transform .1s ease-in-out;
   transition-delay: var(--delay);
   width: 110%;
   transform: rotate3d(1,1,1,var(--offset-rotate)) translate3d(var(--derp));
-  height: 3rem;
+  height: var(--offset-y);
   border:solid .1rem #1f1f1f;
   grid-row: 1/2;
   grid-column: 1;
@@ -100,21 +101,21 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
 
 .Main > button:nth-child(1):hover ~ div:last-child,
 .Main > button:nth-child(1):focus ~ div:last-child {
-  --derp: 0rem, 1.5rem, 0rem;
+  --derp: 0rem, 0rem, 0rem;
   --offset-rotate: -5deg;
-  height: 4rem;
+  height: 4.5rem;
 }
 .Main > button:nth-child(2):hover ~ div:last-child,
 .Main > button:nth-child(2):focus ~ div:last-child{
-  --derp: calc(var(--offset-x)* 1.75), calc(var(--offset-y)* 1.75), 0;
+  --derp: calc(var(--offset-x)* 2), calc(var(--offset-y)* 1.75), 0;
   --offset-rotate: -5deg;
-  height: 4rem;
+  height: 4.5rem;
 }
 .Main > button:nth-child(3):hover ~ div:last-child,
 .Main > button:nth-child(3):focus ~ div:last-child {
-  --derp: calc(var(--offset-x)* 3), calc(var(--offset-y) * 3.1), 0;
+  --derp: calc(var(--offset-x)*3), calc(var(--offset-y) * 3.25), 0;
   --offset-rotate: -5deg;
-  height: 4rem;
+  height: 4.5rem;
 }
 /* .Main > button:nth-child(4):hover ~ div:last-child,
 .Main > button:nth-child(4):focus ~ div:last-child {
