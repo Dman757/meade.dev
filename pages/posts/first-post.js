@@ -26,10 +26,10 @@ export default function FirstPost() {
       <h3>Card Elements</h3>
       <div className={gridStyle.Main}>
         {/* items.map() */}
+        {/* <Item {...items} />
         <Item {...ack} />
         <Item {...ack} />
-        <Item {...ack} />
-        <Item {...ack} />
+        <Item {...ack} /> */}
       </div>
     </Layout>
   );
