@@ -14,6 +14,11 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   border-radius: 50%;
   margin: 0 auto;
   overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  z-index: -10;
 }
 
 .Main {
@@ -40,6 +45,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   width: 100%;
   line-height: var(--offset-y);
   border:none;
+  outline:none;
   /* border-radius: 5px; */
   background: transparent;
   font-size: 2rem;
@@ -53,6 +59,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   grid-column: 1;
   padding-top: var(--offset-y);
   align-self: flex-start;
+  transform: translate3d(0, 0, 0);
 }
 .Main > button:nth-child(2) {
   grid-row: 2/3;
@@ -80,7 +87,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   transition: transform .1s ease-in-out, height .1s ease-in-out;
   transition-delay: var(--delay);
   width: 110%;
-  transform: rotate3d(1,1,1,var(--offset-rotate)) translate3d(var(--derp));
+  transform: rotate(var(--offset-rotate)) translate3d(var(--derp));
   height: var(--offset-y);
   border:solid .1rem #1f1f1f;
   grid-row: 1/2;
@@ -96,7 +103,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
 .Main > button:hover,
 .Main > button:focus {
   /* transition-delay: 0s; */
-  transform: rotate3d(1,1,1, -5deg) scale3d(1.1,1.1,1.1)
+  transform: rotate(-5deg) scale(1.1)
 }
 
 .Main > button:nth-child(1):hover ~ div:last-child,
