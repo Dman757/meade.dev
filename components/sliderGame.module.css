@@ -13,7 +13,12 @@
   /* background-color: black; */
 }
 
-.GameArea > div:nth-child(1) { grid-area: s1; background-color: white; }
+.GameArea > div:nth-child(1) {
+  grid-area: s1;
+  box-sizing: border-box;
+  border:solid 100px green;
+  background-color: white;
+ }
 .GameArea > div:nth-child(2) { grid-area: s2 }
 .GameArea > div:nth-child(3) { grid-area: s3 }
 .GameArea > div:nth-child(4) { grid-area: s4 }
