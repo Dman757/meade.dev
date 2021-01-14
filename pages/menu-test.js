@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Item from 'components/ImageItem.js';
 import Layout from 'components/layout.js';
+import PageLayout from 'components/PageLayout.js';
 import UseEventListener from 'components/utils/useEventListener.js';
 import gridMenu from 'components/gridMenu.module.css';
 import useHasMounted from 'components/utils/useHasMounted';
@@ -97,8 +98,7 @@ export default function FirstPost() {
   }, []);
 
   return (
-    <Layout>
-      {console.log('render')}
+    <PageLayout>
       <h3>Card Elements</h3>
       <div className={gridMenu.CircleBack}>
         <div className={gridMenu.Main}>
@@ -109,6 +109,6 @@ export default function FirstPost() {
         </div>
       </div>
       {/* <div style={{ width: '2px', height: '1500px' }}></div> */}
-    </Layout>
+    </PageLayout>
   );
 }
