@@ -1,0 +1,31 @@
+.GameArea {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  width: 800px;
+  height: 800px;
+  grid-template-areas: var(--puzzle-areas);
+}
+
+.SliderPiece {
+  height: 100%;
+  width: 100%;
+  /* background-color: black; */
+}
+
+.GameArea > div:nth-child(1) { grid-area: s1; background-color: white; }
+.GameArea > div:nth-child(2) { grid-area: s2 }
+.GameArea > div:nth-child(3) { grid-area: s3 }
+.GameArea > div:nth-child(4) { grid-area: s4 }
+.GameArea > div:nth-child(5) { grid-area: s5 }
+.GameArea > div:nth-child(6) { grid-area: s6 }
+.GameArea > div:nth-child(7) { grid-area: s7 }
+.GameArea > div:nth-child(8) { grid-area: s8 }
+.GameArea > div:nth-child(9) { grid-area: s9 }
+.GameArea > div:nth-child(10) { grid-area: s10 }
+.GameArea > div:nth-child(11) { grid-area: s11 }
+.GameArea > div:nth-child(12) { grid-area: s12 }
+.GameArea > div:nth-child(13) { grid-area: s13 }
+.GameArea > div:nth-child(14) { grid-area: s14 }
+.GameArea > div:nth-child(15) { grid-area: s15 }
+.GameArea > div:nth-child(16) { grid-area: s16 }
