@@ -13,19 +13,38 @@ export default function SliderGame() {
   const rightEdge = useRef([]);
 
   const keyCheck = e => {
-    // console.log('gridRef', gridRef);
+    const emptySlot = divArr.current.indexOf('s1');
+
     switch (e.code) {
       case 'KeyW':
       case 'ArrowUp':
+        if (divArr.current[emptySlot - xPieces]) {
+          moveElement(emptySlot, emptySlot - xPieces);
+        }
         break;
       case 'KeyS':
       case 'ArrowDown':
+        if (divArr.current[emptySlot + xPieces]) {
+          moveElement(emptySlot, emptySlot + xPieces);
+        }
         break;
       case 'KeyA':
       case 'ArrowLeft':
+        if (
+          divArr.current[emptySlot - 1] &&
+          !leftEdge.current.includes(emptySlot)
+        ) {
+          moveElement(emptySlot, emptySlot - 1);
+        }
         break;
       case 'KeyD':
       case 'ArrowRight':
+        if (
+          divArr.current[emptySlot + 1] &&
+          !rightEdge.current.includes(emptySlot)
+        ) {
+          moveElement(emptySlot, emptySlot + 1);
+        }
         break;
       default:
         break;
