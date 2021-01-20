@@ -5,50 +5,127 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function SliderGame() {
   const [imagePieces, setImagePieces] = useState([]);
-  // const emptySlot = useRef('s1');
-  const divArr = [
-    's1',
-    's2',
-    's3',
-    's4',
-    's5',
-    's6',
-    's7',
-    's8',
-    's9',
-    's10',
-    's11',
-    's12',
-    's13',
-    's14',
-    's15',
-    's16',
-  ];
+  const [xPieces, setxPieces] = useState(4);
+  const [yPieces, setyPieces] = useState(4);
+  const divArr = useRef([]);
+  const canvasRef = useRef(null);
+  const leftEdge = useRef([]);
+  const rightEdge = useRef([]);
 
-  function newGrid(pieceId) {
-    const emptySlot = divArr.indexOf('s1');
-    const newEmptySlot = divArr.indexOf(pieceId);
+  const keyCheck = e => {
+    // console.log('gridRef', gridRef);
+    switch (e.code) {
+      case 'KeyW':
+      case 'ArrowUp':
+        break;
+      case 'KeyS':
+      case 'ArrowDown':
+        break;
+      case 'KeyA':
+      case 'ArrowLeft':
+        break;
+      case 'KeyD':
+      case 'ArrowRight':
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', keyCheck);
+
+    return () => {
+      window.removeEventListener('keydown', keyCheck);
+    };
+  }, []);
+
+  useEffect(() => {
+    rightEdge.current = [];
+    leftEdge.current = [];
+    for (var i = 0; i < yPieces; i++) {
+      rightEdge.current.push(xPieces * (i + 1) - 1);
+      leftEdge.current.push(xPieces * i);
+    }
+    document.documentElement.style.setProperty('--xPieces', xPieces);
+    document.documentElement.style.setProperty('--yPieces', yPieces);
+  }, [xPieces, yPieces]);
+
+  function calculateTemplateAreas(xPieces, yPieces) {
+    var newGridAreas = '';
+    var count = 0;
+    for (var y = 0; y < yPieces; y++) {
+      newGridAreas += `"`;
+      for (var x = 0; x < xPieces; x++) {
+        x + 1 === xPieces
+          ? (newGridAreas += `${divArr.current[count]}" `)
+          : (newGridAreas += `${divArr.current[count]} `);
+        count++;
+      }
+    }
+    document.documentElement.style.setProperty('--puzzle-areas', newGridAreas);
+  }
+
+  function moveElement(emptySlot, newEmptySlot) {
+    [divArr.current[emptySlot], divArr.current[newEmptySlot]] = [
+      divArr.current[newEmptySlot],
+      divArr.current[emptySlot],
+    ];
+
+    calculateTemplateAreas(xPieces, yPieces);
+  }
+
+  function clickCheck(pieceId) {
+    const emptySlot = divArr.current.indexOf('s1');
+    const newEmptySlot = divArr.current.indexOf(pieceId);
+
+    if (newEmptySlot + xPieces === emptySlot) {
+      console.log('down');
+      moveElement(emptySlot, newEmptySlot);
+    } else if (newEmptySlot - xPieces === emptySlot) {
+      console.log('up');
+      moveElement(emptySlot, newEmptySlot);
+    } else if (
+      newEmptySlot + 1 === emptySlot &&
+      !leftEdge.current.includes(emptySlot)
+    ) {
+      console.log('left');
+      moveElement(emptySlot, newEmptySlot);
+    } else if (
+      newEmptySlot - 1 === emptySlot &&
+      !rightEdge.current.includes(emptySlot)
+    ) {
+      console.log('right');
+      moveElement(emptySlot, newEmptySlot);
+    }
 
     // this swaps two array elements using dark arcane es6 magic
     // also prettier somehow makes it less readable splitting lines
-    [divArr[emptySlot], divArr[newEmptySlot]] = [
-      divArr[newEmptySlot],
-      divArr[emptySlot],
-    ];
-    const newGridAreas = `"${divArr[0]} ${divArr[1]} ${divArr[2]} ${divArr[3]}" "${divArr[4]} ${divArr[5]} ${divArr[6]} ${divArr[7]}" "${divArr[8]} ${divArr[9]} ${divArr[10]} ${divArr[11]}" "${divArr[12]} ${divArr[13]} ${divArr[14]} ${divArr[15]}"`;
-    document.documentElement.style.setProperty('--puzzle-areas', newGridAreas);
+    // [divArr.current[emptySlot], divArr.current[newEmptySlot]] = [
+    //   divArr.current[newEmptySlot],
+    //   divArr.current[emptySlot],
+    // ];
+
     return '';
   }
 
-  //asjdlkfaslkdfja
-  const canvasRef = useRef(null);
   useEffect(() => {
     function loadImage() {
-      const widthOfOnePiece = 200;
-      const heightOfOnePiece = 200;
+      // todo calculate widthOfOnePiece and heightOfOnePiece based on width/height and # pieces
+      // use difficulty slider to determine number of pieces
+      console.log(this.width);
+      console.log(this.height);
+
+      // const xPieces = 4;
+      // const yPieces = 6;
+      // setxxPieces(xPieces);
+      // setyyPieces(yPieces);
+
+      const widthOfOnePiece = this.width / xPieces;
+      const heightOfOnePiece = this.height / yPieces;
       var images = [];
-      for (var x = 0; x < 4; ++x) {
-        for (var y = 0; y < 4; ++y) {
+      for (var x = 0; x < xPieces; ++x) {
+        for (var y = 0; y < yPieces; ++y) {
           // var canvas = document.createElement('canvas');
           const canvas = canvasRef.current;
           canvas.width = widthOfOnePiece;
@@ -69,6 +146,14 @@ export default function SliderGame() {
         }
       }
 
+      divArr.current = [];
+      for (var i = 0; i < images.length; i++) {
+        divArr.current.push(`s${i + 1}`);
+      }
+      console.log(divArr.current);
+
+      calculateTemplateAreas(xPieces, yPieces);
+
       // imagePieces now contains data urls of all the pieces of the image
       setImagePieces(images);
     }
@@ -76,81 +161,14 @@ export default function SliderGame() {
     var image = new Image();
     image.onload = loadImage;
     image.src = '/trash.jpg';
-    // const widthOfOnePiece = 75;
-    // const heightOfOnePiece = 75;
-    // var images = [];
-    // for (var x = 0; x < 4; ++x) {
-    //   for (var y = 0; y < 4; ++y) {
-    //     // var canvas = document.createElement('canvas');
-    //     const canvas = canvasRef.current;
-    //     canvas.width = widthOfOnePiece;
-    //     canvas.height = heightOfOnePiece;
-    //     var context = canvas.getContext('2d');
-    //     context.drawImage(
-    //       image,
-    //       x * widthOfOnePiece,
-    //       y * heightOfOnePiece,
-    //       widthOfOnePiece,
-    //       heightOfOnePiece,
-    //       0,
-    //       0,
-    //       canvas.width,
-    //       canvas.height
-    //     );
-    //     images.push(canvas.toDataURL());
-    //   }
-    // }
-
-    // // imagePieces now contains data urls of all the pieces of the image
-    // setImagePieces(images);
-    // load one piece onto the page
-    // console.log('wat', imagePieces);
-    // var anImageElement = document.getElementById('myImageElementInTheDom');
-    // anImageElement.src = imagePieces[0];
   }, []);
 
-  // var image = new Image();
-  // image.onload = cutImageUp;
-  // image.src = 'myimage.png';
-
-  // function cutImageUp() {
-  //   var imagePieces = [];
-  //   for (var x = 0; x < numColsToCut; ++x) {
-  //     for (var y = 0; y < numRowsToCut; ++y) {
-  //       var canvas = document.createElement('canvas');
-  //       canvas.width = widthOfOnePiece;
-  //       canvas.height = heightOfOnePiece;
-  //       var context = canvas.getContext('2d');
-  //       context.drawImage(
-  //         image,
-  //         x * widthOfOnePiece,
-  //         y * heightOfOnePiece,
-  //         widthOfOnePiece,
-  //         heightOfOnePiece,
-  //         0,
-  //         0,
-  //         canvas.width,
-  //         canvas.height
-  //       );
-  //       imagePieces.push(canvas.toDataURL());
-  //     }
-  //   }
-
-  //   // imagePieces now contains data urls of all the pieces of the image
-
-  //   // load one piece onto the page
-  //   var anImageElement = document.getElementById('myImageElementInTheDom');
-  //   anImageElement.src = imagePieces[0];
-  // }
-
-  //aslkdjfalskjdfladskj
   return (
     <>
       <div className={styles.GameArea}>
-        {console.log(imagePieces)}
-        {divArr.map((_, i) => (
+        {imagePieces.map((_, i) => (
           <div
-            onClick={() => newGrid(`s${i + 1}`)}
+            onClick={() => clickCheck(`s${i + 1}`)}
             key={`piece${i}`}
             style={{
               // backgroundColor: `#${Math.floor(
@@ -158,6 +176,7 @@ export default function SliderGame() {
               // ).toString(16)}`,
               backgroundImage: `url(${imagePieces[i]})`,
               backgroundSize: 'contain',
+              gridArea: `s${i + 1}`,
             }}
             className={styles.SliderPiece}
           />
