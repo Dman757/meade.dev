@@ -1,12 +1,10 @@
-import PageLayout from 'components/PageLayout';
 import styles from 'components/sliderGame.module.css';
-import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 
 export default function SliderGame() {
   const [imagePieces, setImagePieces] = useState([]);
-  const [xPieces, setxPieces] = useState(4);
-  const [yPieces, setyPieces] = useState(4);
+  const [xPieces, setxPieces] = useState(3);
+  const [yPieces, setyPieces] = useState(3);
   const divArr = useRef([]);
   const canvasRef = useRef(null);
   const leftEdge = useRef([]);
@@ -99,22 +97,18 @@ export default function SliderGame() {
     const newEmptySlot = divArr.current.indexOf(pieceId);
 
     if (newEmptySlot + xPieces === emptySlot) {
-      console.log('down');
       moveElement(emptySlot, newEmptySlot);
     } else if (newEmptySlot - xPieces === emptySlot) {
-      console.log('up');
       moveElement(emptySlot, newEmptySlot);
     } else if (
       newEmptySlot + 1 === emptySlot &&
       !leftEdge.current.includes(emptySlot)
     ) {
-      console.log('left');
       moveElement(emptySlot, newEmptySlot);
     } else if (
       newEmptySlot - 1 === emptySlot &&
       !rightEdge.current.includes(emptySlot)
     ) {
-      console.log('right');
       moveElement(emptySlot, newEmptySlot);
     }
 
@@ -128,13 +122,14 @@ export default function SliderGame() {
     return '';
   }
 
+  // Setup canvas and slice images
   useEffect(() => {
     function loadImage() {
       // todo calculate widthOfOnePiece and heightOfOnePiece based on width/height and # pieces
       // use difficulty slider to determine number of pieces
       console.log(this.width);
       console.log(this.height);
-
+      divArr.current = [];
       // const xPieces = 4;
       // const yPieces = 6;
       // setxxPieces(xPieces);
@@ -143,8 +138,8 @@ export default function SliderGame() {
       const widthOfOnePiece = this.width / xPieces;
       const heightOfOnePiece = this.height / yPieces;
       var images = [];
-      for (var x = 0; x < xPieces; ++x) {
-        for (var y = 0; y < yPieces; ++y) {
+      for (var y = 0; y < yPieces; ++y) {
+        for (var x = 0; x < xPieces; ++x) {
           // var canvas = document.createElement('canvas');
           const canvas = canvasRef.current;
           canvas.width = widthOfOnePiece;
@@ -165,11 +160,9 @@ export default function SliderGame() {
         }
       }
 
-      divArr.current = [];
       for (var i = 0; i < images.length; i++) {
         divArr.current.push(`s${i + 1}`);
       }
-      console.log(divArr.current);
 
       calculateTemplateAreas(xPieces, yPieces);
 
@@ -182,12 +175,48 @@ export default function SliderGame() {
     image.src = '/trash.jpg';
   }, []);
 
+  function shuffle() {
+    for (var i = 0; i < 100 * xPieces * yPieces; i++) {
+      const emptySlot = divArr.current.indexOf('s1');
+      switch (Math.floor(Math.random() * Math.floor(4))) {
+        case 0:
+          if (divArr.current[emptySlot - xPieces]) {
+            moveElement(emptySlot, emptySlot - xPieces);
+          }
+          break;
+        case 1:
+          if (divArr.current[emptySlot + xPieces]) {
+            moveElement(emptySlot, emptySlot + xPieces);
+          }
+          break;
+        case 2:
+          if (
+            divArr.current[emptySlot - 1] &&
+            !leftEdge.current.includes(emptySlot)
+          ) {
+            moveElement(emptySlot, emptySlot - 1);
+          }
+          break;
+        case 3:
+          if (
+            divArr.current[emptySlot + 1] &&
+            !rightEdge.current.includes(emptySlot)
+          ) {
+            moveElement(emptySlot, emptySlot + 1);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
   return (
     <>
       <div className={styles.GameArea}>
         {imagePieces.map((_, i) => (
           <div
-            onClick={() => clickCheck(`s${i + 1}`)}
+            onMouseDown={() => clickCheck(`s${i + 1}`)}
             key={`piece${i}`}
             style={{
               // backgroundColor: `#${Math.floor(
@@ -201,6 +230,7 @@ export default function SliderGame() {
           />
         ))}
       </div>
+      <buton onClick={() => shuffle()}>Shuffle</buton>
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </>
   );
