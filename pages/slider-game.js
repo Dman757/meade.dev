@@ -9,6 +9,7 @@ export default function SliderGame() {
   const canvasRef = useRef(null);
   const leftEdge = useRef([]);
   const rightEdge = useRef([]);
+  // var image;
 
   const keyCheck = e => {
     const emptySlot = divArr.current.indexOf('s1');
@@ -88,7 +89,9 @@ export default function SliderGame() {
       divArr.current[newEmptySlot],
       divArr.current[emptySlot],
     ];
+    // const ack = document.getElementById(divArr.current[emptySlot]);
 
+    // console.log('div', ack);
     calculateTemplateAreas(xPieces, yPieces);
   }
 
@@ -130,10 +133,6 @@ export default function SliderGame() {
       console.log(this.width);
       console.log(this.height);
       divArr.current = [];
-      // const xPieces = 4;
-      // const yPieces = 6;
-      // setxxPieces(xPieces);
-      // setyyPieces(yPieces);
 
       const widthOfOnePiece = this.width / xPieces;
       const heightOfOnePiece = this.height / yPieces;
@@ -170,7 +169,7 @@ export default function SliderGame() {
       setImagePieces(images);
     }
 
-    var image = new Image();
+    const image = new Image();
     image.onload = loadImage;
     image.src = '/trash.jpg';
   }, []);
@@ -217,6 +216,7 @@ export default function SliderGame() {
         {imagePieces.map((_, i) => (
           <div
             onMouseDown={() => clickCheck(`s${i + 1}`)}
+            id={`s${i + 1}`}
             key={`piece${i}`}
             style={{
               // backgroundColor: `#${Math.floor(
@@ -230,7 +230,7 @@ export default function SliderGame() {
           />
         ))}
       </div>
-      <buton onClick={() => shuffle()}>Shuffle</buton>
+      <button onClick={() => shuffle()}>Shuffle</button>
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </>
   );
