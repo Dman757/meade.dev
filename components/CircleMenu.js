@@ -1,6 +1,6 @@
 import gridMenu from 'components/gridMenu.module.css';
 import { useEffect } from 'react';
-
+import Link from 'next/link';
 const items = {
   title: 'ack',
   image: 'asdfadsfdf',
@@ -75,9 +75,19 @@ export default function CircleMenu() {
   return (
     <div className={gridMenu.CircleBack}>
       <div className={gridMenu.Main}>
-        <button>Blog</button>
-        <button>About</button>
-        <button>Resume</button>
+        <Link href="/posts/markdown-test" passHref>
+          <button>Blog</button>
+        </Link>
+        <button
+          onClick={() =>
+            (document.location.href = 'https://www.behance.net/DavidMeade')
+          }
+        >
+          Portfolio
+        </button>
+        <Link href="/Resume_David_Meade_12_07_2020.pdf" passHref>
+          <button>Resume</button>
+        </Link>
         <div></div>
       </div>
     </div>

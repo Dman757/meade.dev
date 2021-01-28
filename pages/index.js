@@ -2,10 +2,11 @@ import PageLayout from 'components/PageLayout.js';
 import CircleMenu from 'components/CircleMenu';
 import mountainParallax from 'components/mountain-parallax.module.css';
 import { useEffect } from 'react';
+
 export default function MainPage() {
   useEffect(() => {
     console.log('hello');
-    for (var i = 0; i < 12; ++i) {
+    for (var i = -10; i < 12; ++i) {
       var x = (6 - i) / 2;
       console.log(i, -100 * x, x + 1);
     }
