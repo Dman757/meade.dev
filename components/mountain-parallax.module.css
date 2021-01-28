@@ -1,0 +1,63 @@
+
+.ParallaxContainer {
+  perspective: 100px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-left: -1500px;
+}
+
+.layer{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.layer img{
+  display: block;
+  position: absolute;
+  bottom: 0;
+}
+
+.cover{
+  background: #041040;
+  display: block;
+  position: absolute;
+  top: 99%;
+  left: 0;
+  right: 0;
+  height: 2000px;
+  z-index: 2;
+}
+
+.ParallaxContainer > div:nth-child(1) {
+  transform: translateZ(-300px) scale(4);
+}
+.ParallaxContainer > div:nth-child(2) {
+  transform: translateZ(-250px) scale(3.5);
+}
+.ParallaxContainer > div:nth-child(3) {
+  transform: translateZ(-200px) scale(3);
+}
+.ParallaxContainer > div:nth-child(4) {
+  transform: translateZ(-150px) scale(2.5);
+}
+.ParallaxContainer > div:nth-child(5) {
+  transform: translateZ(0px) scale(1);
+}
+
+/* $parallax__layers: 6; */
+
+/* @for $i from 0 through $parallax__layers {
+  $x: ($parallax__layers - $i) / 2;
+  .parallax__layer__#{$i}{
+     transform: translateZ(-100 * $x#{px}) scale($x + 1);
+  }
+} */
