@@ -75,8 +75,8 @@ export default function CircleMenu() {
   return (
     <div className={gridMenu.CircleBack}>
       <div className={gridMenu.Main}>
-        <Link href="/posts/markdown-test" passHref>
-          <button>Blog</button>
+        <Link href="/Resume_David_Meade_12_07_2020.pdf" passHref>
+          <button>Resume</button>
         </Link>
         <button
           onClick={() =>
@@ -85,9 +85,16 @@ export default function CircleMenu() {
         >
           Portfolio
         </button>
-        <Link href="/Resume_David_Meade_12_07_2020.pdf" passHref>
-          <button>Resume</button>
-        </Link>
+        <button
+          onClick={() =>
+            (document.location.href = 'https://github.com/Dman757/meade.dev')
+          }
+        >
+          Github
+        </button>
+        {/* <Link href="/posts/markdown-test" passHref>
+          <button>Blog</button>
+        </Link> */}
         <div></div>
       </div>
     </div>

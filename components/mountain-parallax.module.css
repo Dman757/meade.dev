@@ -10,6 +10,7 @@
   right: 0;
   bottom: 0;
   margin-left: -1500px;
+  /* z-index: -1; */
 }
 
 .layer{
@@ -34,7 +35,7 @@
   left: 0;
   right: 0;
   height: 2000px;
-  z-index: 2;
+  /* z-index: 1; */
 }
 
 .ParallaxContainer > div:nth-child(1) {
