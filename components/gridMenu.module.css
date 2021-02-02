@@ -41,7 +41,6 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
 /* 16 + 16*2  */
 .Main > button {
   font-family: 'NeoNoire';
-  transition: color 1s ease;
   color: var(--circle-font-color);
   z-index: 10;
   width: 100%;
@@ -52,7 +51,7 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   background: transparent;
   font-size: 2rem;
   /* padding: 0.5rem; */
-  transition: transform .1s ease-in-out;
+  transition: transform .1s ease-in-out, color 1s ease;
   transition-delay: var(--delay);
 }
 
@@ -86,14 +85,12 @@ Similar hover states to this https://www.youtube.com/watch?v=YU-_RccjIbA&feature
   align-self: flex-end;
   box-sizing: border-box;
   background-color: var(--circle-bar-color);
-  transition: transform .1s ease-in-out, height .1s ease-in-out;
+  transition: transform .1s ease-in-out, height .1s ease-in-out, background-color 1s ease, border-color 1s ease;
   transition-delay: var(--delay);
   width: 110%;
   transform: rotate(var(--offset-rotate)) translate3d(var(--derp));
   height: var(--offset-y);
-  transition: border-color 1s ease;
-  transition: background-color 1s ease;
-  border:solid .1rem var(--circle-bar-color);
+  border: solid .1rem var(--circle-bar-color);
   grid-row: 1/2;
   grid-column: 1;
 }
