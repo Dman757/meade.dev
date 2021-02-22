@@ -1,5 +1,6 @@
 
 .card {
+  z-index: 99;
   width: auto;
   margin: 2rem;
   margin-top: 80%;

@@ -3,6 +3,7 @@ import CircleMenu from 'components/CircleMenu';
 import mountainParallax from 'components/mountain-parallax.module.css';
 import { useEffect, useRef } from 'react';
 import debounce from 'lodash/debounce';
+import MinimalCard from 'components/MinimalCard';
 
 export default function MainPage() {
 
@@ -72,8 +73,10 @@ export default function MainPage() {
     <PageLayout>
       <div style={{marginTop: "2rem"}}>
         <CircleMenu />
-        <p>Welcome to my site, it's currently going construction.</p>
       </div>
+      
+        <MinimalCard>Welcome to my personal site, it's relatively early in development, you can follow along on via the github link above</MinimalCard>
+      
     </PageLayout>
   </>  
   );
