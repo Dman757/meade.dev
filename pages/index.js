@@ -6,7 +6,6 @@ import debounce from 'lodash/debounce';
 import MinimalCard from 'components/MinimalCard';
 
 export default function MainPage() {
-
   const parallaxRef = useRef(null);
 
   // useEffect(() => {
@@ -17,39 +16,59 @@ export default function MainPage() {
   //   }
   // }, []);
 
-  const handleScroll = (e) => {
-    console.log('scroll')
-    console.log(parallaxRef.current.scrollTop)
-    
-    if(parallaxRef.current.scrollTop > 600) {
-    // document.documentElement.style.setProperty('--circle-background-color', '#a3cef1'); // #283377
-    document.documentElement.style.setProperty('--circle-background-color', '#283377'); // #283377
-    // document.documentElement.style.setProperty('--circle-font-color', '#d952b1'); //EDA2F1
-    document.documentElement.style.setProperty('--circle-font-color', '#EDA2F1'); //EDA2F1
-    // document.documentElement.style.setProperty('--circle-bar-color', '#293241'); // 0c49af
-    document.documentElement.style.setProperty('--circle-bar-color', '#0c49af'); // 0c49af
+  const handleScroll = e => {
+    console.log('scroll');
+    console.log(parallaxRef.current.scrollTop);
+
+    if (parallaxRef.current.scrollTop > 600) {
+      // document.documentElement.style.setProperty('--circle-background-color', '#a3cef1'); // #283377
+      document.documentElement.style.setProperty(
+        '--circle-background-color',
+        '#283377'
+      ); // #283377
+      // document.documentElement.style.setProperty('--circle-font-color', '#d952b1'); //EDA2F1
+      document.documentElement.style.setProperty(
+        '--circle-font-color',
+        '#EDA2F1'
+      ); //EDA2F1
+      // document.documentElement.style.setProperty('--circle-bar-color', '#293241'); // 0c49af
+      document.documentElement.style.setProperty(
+        '--circle-bar-color',
+        '#0c49af'
+      ); // 0c49af
     } else {
-      document.documentElement.style.setProperty('--circle-background-color', '#ff2591');
-      document.documentElement.style.setProperty('--circle-font-color', '#ffec41');
-      document.documentElement.style.setProperty('--circle-bar-color', '#1f1f1f');
+      document.documentElement.style.setProperty(
+        '--circle-background-color',
+        '#ff2591'
+      );
+      document.documentElement.style.setProperty(
+        '--circle-font-color',
+        '#ffec41'
+      );
+      document.documentElement.style.setProperty(
+        '--circle-bar-color',
+        '#1f1f1f'
+      );
     }
-    
-    
-  } 
+  };
   // useLayoutEffect ???
   // https://kentcdodds.com/blog/useeffect-vs-uselayouteffect
-
+  // git test
   useEffect(() => {
-
-    if(parallaxRef && parallaxRef.current) {
-      parallaxRef.current.addEventListener('scroll', debounce(handleScroll, 10), false);
+    if (parallaxRef && parallaxRef.current) {
+      parallaxRef.current.addEventListener(
+        'scroll',
+        debounce(handleScroll, 10),
+        false
+      );
     }
-    
-    return () => parallaxRef.current.removeEventListener('scroll', handleScroll);
+
+    return () =>
+      parallaxRef.current.removeEventListener('scroll', handleScroll);
   });
 
   return (
-<>
+    <>
       <div className={mountainParallax.ParallaxContainer} ref={parallaxRef}>
         <div className={mountainParallax.layer}>
           <img id="layer5" src="/mountain_svgs/5.svg" alt="An Svg" />
@@ -66,18 +85,18 @@ export default function MainPage() {
         <div className={mountainParallax.layer}>
           <img id="layer1" src="/mountain_svgs/1.svg" alt="An Svg" />
         </div>
-        <div className={mountainParallax.cover} >
+        <div className={mountainParallax.cover}></div>
+      </div>
+      <PageLayout>
+        <div style={{ marginTop: '2rem' }}>
+          <CircleMenu />
         </div>
 
-    </div>
-    <PageLayout>
-      <div style={{marginTop: "2rem"}}>
-        <CircleMenu />
-      </div>
-      
-        <MinimalCard>Welcome to my personal site, it's relatively early in development, you can follow along on via the github link above</MinimalCard>
-      
-    </PageLayout>
-  </>  
+        <MinimalCard>
+          Welcome to my personal site, it's relatively early in development, you
+          can follow along on via the github link above
+        </MinimalCard>
+      </PageLayout>
+    </>
   );
 }
