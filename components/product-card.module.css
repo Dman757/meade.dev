@@ -1,0 +1,16 @@
+.ProductCard {
+  max-width: 300px;
+  border: solid 2px black;
+  /* border-radius: 99px; */
+  /* padding: 1rem; */
+}
+
+.ProductImage{
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+} 
+
+.ContentArea {
+  padding: 1rem;
+}
