@@ -75,7 +75,7 @@ export default function CircleMenu() {
   return (
     <div className={gridMenu.CircleBack}>
       <div className={gridMenu.Main}>
-        <Link href="/David_Meade_Resume_10-11-2021_website_version.pdf" passHref>
+        <Link href="/Resume_David Meade_Website_Version_10_12_2021" passHref>
           <button>Resume</button>
         </Link>
         <button
