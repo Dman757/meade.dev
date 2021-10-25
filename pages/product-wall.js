@@ -31,6 +31,24 @@ const mockProducts = [
     description: 'Hey, you should buy this thing',
     image: '/cat.jpg',
   },
+  {
+    swatches: [...mockSwatches],
+    price: '123.45',
+    description: 'Hey, you should buy this thing',
+    image: '/cat.jpg',
+  },
+  {
+    swatches: [...mockSwatches],
+    price: '123.45',
+    description: 'Hey, you should buy this thing',
+    image: '/cat.jpg',
+  },
+  {
+    swatches: [...mockSwatches],
+    price: '123.45',
+    description: 'Hey, you should buy this thing',
+    image: '/cat.jpg',
+  },
 ];
 
 export default function ProductWall() {

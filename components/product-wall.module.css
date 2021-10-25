@@ -1,5 +1,7 @@
 .ProductWallLayout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* max-width: 1366px; */
+  /* margin: auto; */
+  grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
   grid-gap: 1em;
 }
