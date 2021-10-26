@@ -15,18 +15,18 @@ export default function BumpCard(bump) {
   const [isVideo, setIsVideo] = useState(false);
   const [videoThumb, setVideoThumb] = useState(null);
   useEffect(() => {
-    console.log(bump);
     if (bump.video) {
       setIsVideo(true);
     }
   }, []);
 
   useEffect(() => {
+    window.addEventListener;
+
     function createThumbnail() {
-      console.log('aaaaaaaaaaaaaaaaaaaaa', canvasRef.current);
       const canvas = canvasRef.current;
       const video = videoRef.current;
-      console.log(video.videoWidth);
+      // console.log(video.videoWidth);
       let context = canvas.getContext('2d');
 
       // aspect ratio calc doesn't full width
@@ -58,18 +58,18 @@ export default function BumpCard(bump) {
         canvas.width,
         canvas.height
       );
-      setVideoThumb(true);
+      // setVideoThumb(true);
+      console.log('ack');
     }
-
     var video = videoRef.current;
-    video.onload = createThumbnail();
+    video.addEventListener('loadeddata', createThumbnail);
     video.src = `https://${bump.name}.shithouse.tv/${bump.video}`;
-    video.load();
-
-    createThumbnail();
+    // video.load();
+    return () => video.removeEventListener('loadeddata', createThumbnail);
+    // createThumbnail();
   }, []);
 
-  console.log(videoThumb);
+  // console.log(videoThumb);
   return (
     <div className={styles.ProductCard}>
       {!isVideo ? (
