@@ -16,7 +16,6 @@ export default function nicehouse() {
   const [isVideo, setIsVideo] = useState(false);
   const [numberLoaded, setNumberLoaded] = useState(20);
   const [displayBumps, setDisplayBumps] = useState([]);
-  const [asdf, setAsdf] = useState(false);
 
   const observerRef = useRef(null);
   const prevRef = useRef(null);
@@ -34,6 +33,12 @@ export default function nicehouse() {
     }
     await getShithouse();
   }, []);
+
+  useEffect(() => {
+    setDisplayBumps(
+      bumps.filter(bump => (isVideo ? bump?.video : bump?.image))
+    );
+  }, [isVideo]);
 
   useEffect(() => {
     console.log('ack');
