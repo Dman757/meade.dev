@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from 'components/product-card.module.css';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, forwardRef } from 'react';
 
 const buttons = [
   { color: 'red' },
@@ -9,7 +9,7 @@ const buttons = [
   { color: 'green' },
 ];
 
-export default function BumpCard(bump) {
+const BumpCard = forwardRef((bump, ref) => {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const [isVideo, setIsVideo] = useState(false);
@@ -21,8 +21,6 @@ export default function BumpCard(bump) {
   }, []);
 
   useEffect(() => {
-    window.addEventListener;
-
     function createThumbnail() {
       const canvas = canvasRef.current;
       const video = videoRef.current;
@@ -69,9 +67,8 @@ export default function BumpCard(bump) {
     // createThumbnail();
   }, []);
 
-  // console.log(videoThumb);
   return (
-    <div className={styles.ProductCard}>
+    <div ref={ref} className={styles.ProductCard}>
       {!isVideo ? (
         <img
           className={styles.ProductImage}
@@ -84,8 +81,9 @@ export default function BumpCard(bump) {
           }
           // crossOrigin="anonymous"
         />
-      ) : null}
-      <canvas className={styles.ProductImage} ref={canvasRef} />
+      ) : (
+        <canvas className={styles.ProductImage} ref={canvasRef} />
+      )}
 
       <div className={styles.ContentArea}>
         {/* <div className={styles.Swatches}>
@@ -124,4 +122,7 @@ export default function BumpCard(bump) {
       />
     </div>
   );
-}
+});
+
+// export default forwardRef((props, ref) => BumpCard(props, ref));
+export default BumpCard;
