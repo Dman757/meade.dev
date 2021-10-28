@@ -1,4 +1,4 @@
-import {
+import React, {
   useEffect,
   useState,
   useRef,
@@ -19,7 +19,13 @@ export default function nicehouse() {
 
   const observerRef = useRef(null);
   const prevRef = useRef(null);
-  const counter = useRef(50);
+  // const indexStart = useRef(0);
+  // const indexEnd = useRef(numberLoaded);
+
+  const [arraySubsectionIndexes, setIndexes] = useState({ start: 0, end: 19 });
+
+  // array.slice(indexStart.current, indexEnd.current)
+
   useEffect(async () => {
     async function getShithouse() {
       fetch('https://api.shithouse.tv')
@@ -44,23 +50,17 @@ export default function nicehouse() {
     console.log('ack');
 
     const observer = new IntersectionObserver(entries => {
-      // console.log(entry);
-
+      // Copied this entries.some thing off a google demo
+      // https://googlechrome.github.io/samples/intersectionobserver/
       if (entries.some(entry => entry.intersectionRatio > 0)) {
-        console.log('aslkdjfa');
+        // get a copy of the current observed element and stop observing it.
         prevRef.current = observerRef.current;
-        counter.current += 10;
         observer.unobserve(prevRef.current);
-        setNumberLoaded(counter.current);
+        // increment our number of elements to load in the render function
+        setNumberLoaded(ack => ack + 10);
+        // reobserve the new element
         observer.observe(observerRef.current);
       }
-      // console.log('observed');
-      // prevRef.current = observerRef.current;
-      // // observer.unobserve(prevRef.current);
-      // observer.disconnect();
-      // console.log(observerRef);
-      // console.log(prevRef);
-      // observer.observe(observerRef.current);
     });
 
     if (observerRef.current) {
@@ -128,35 +128,11 @@ export default function nicehouse() {
         />
         VIDEOS
       </label>
-      {/* // <input
-      //   name="isVideo"
-      //   value={isVideo}
-      //   type="checkbox"
-      //   onChange={() => setIsVideo(isVideo => !isVideo)}
-      // /> */}
+
       <div className={styles.ProductWallLayout}>
-        {/* {bumps.map((bump, index) => {
-          if (index < 10) {
-            return <BumpCard key={index} {...bump} />;
-          }
-        })} */}
-        {/* <BumpCard {...bumps[1]} />
-        <BumpCard {...bumps[2]} />
-        <BumpCard {...bumps[3]} />
-        <BumpCard {...bumps[4]} />
-        <BumpCard {...bumps[5]} />
-        <BumpCard {...bumps[6]} />
-        <BumpCard {...bumps[7]} />
-        <BumpCard {...bumps[8]} />
-        <BumpCard {...bumps[9]} />
-        <BumpCard {...bumps[10]} />
-        <BumpCard {...bumps[11]} />
-        <BumpCard ref={observerRef} {...bumps[12]} />
-        <BumpCard {...bumps[13]} />
-        <BumpCard {...bumps[14]} /> */}
         {displayBumps.map((videoBump, index) => {
-          if (index < counter.current) {
-            if (index === counter.current - 1) {
+          if (index < numberLoaded) {
+            if (index === numberLoaded - 1) {
               return (
                 <BumpCard
                   id={`${index}-${videoBump.name}`}
@@ -172,7 +148,6 @@ export default function nicehouse() {
             }
           }
         })}
-        {/* <div ref={observerRef} /> */}
       </div>
     </Layout>
   );
