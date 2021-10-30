@@ -22,7 +22,9 @@ export default function nicehouse() {
   // const indexStart = useRef(0);
   // const indexEnd = useRef(numberLoaded);
 
-  const [arraySubsectionIndexes, setIndexes] = useState({ start: 0, end: 19 });
+  const [bumpIndexes, setIndexes] = useState({ start: 0, end: 25 });
+  const garbageCollect = useRef(false);
+  const preLoadAmount = 20;
 
   // array.slice(indexStart.current, indexEnd.current)
 
@@ -57,7 +59,23 @@ export default function nicehouse() {
         prevRef.current = observerRef.current;
         observer.unobserve(prevRef.current);
         // increment our number of elements to load in the render function
-        setNumberLoaded(ack => ack + 10);
+        // setNumberLoaded(ack => {
+        //   console.log(ack);
+        //   return ack + 10;
+        // });
+        if (bumpIndexes.start > preLoadAmount * 4) {
+          garbageCollect.current = true;
+        }
+        setIndexes(ack => {
+          console.log('fack', ack);
+          return {
+            start:
+              ack.end - ack.start < preLoadAmount * 4
+                ? ack.start
+                : ack.start + preLoadAmount * 2,
+            end: ack.end + preLoadAmount,
+          };
+        });
         // reobserve the new element
         observer.observe(observerRef.current);
       }
@@ -130,7 +148,28 @@ export default function nicehouse() {
       </label>
 
       <div className={styles.ProductWallLayout}>
-        {displayBumps.map((videoBump, index) => {
+        {/* {bumps.slice(bumpIndexes.start, bumpIndexes.end).map(ack => (
+          <div>{ack.name}</div>
+        ))} */}
+        {console.log(bumpIndexes.start, bumpIndexes.end)}
+        {bumps
+          .slice(bumpIndexes.start, bumpIndexes.end)
+          .map((bump, index, bumpsSlice) => {
+            if (index === bumpsSlice.length - 1) {
+              return (
+                <BumpCard
+                  id={`${index}-${bump.name}`}
+                  ref={observerRef}
+                  key={`${index}-${bump.name}`}
+                  {...bump}
+                />
+              );
+            } else {
+              return <BumpCard key={`${index}-${bump.name}`} {...bump} />;
+            }
+          })}
+
+        {/* {displayBumps.map((videoBump, index) => {
           if (index < numberLoaded) {
             if (index === numberLoaded - 1) {
               return (
@@ -147,7 +186,7 @@ export default function nicehouse() {
               );
             }
           }
-        })}
+        })} */}
       </div>
     </Layout>
   );

@@ -5,3 +5,13 @@
   grid-template-columns: repeat(auto-fill, minmax(15ch, 1fr));
   grid-gap: 1em;
 }
+
+.InfiniteScroll {
+  min-height: var(--infinite-scroll-height);
+}
+
+.AnElement {
+  position: absolute;
+  transform: translateY(var(--fuck-it));
+  /* transform: translateY(10px); */
+}
