@@ -58,11 +58,14 @@ export default function nicehouse() {
             `${scrollTop + clientHeight}px`
           );
         } else {
-          if (elementOffset > scrollTop && scrollTop - clientHeight >= 0)
+          if (elementOffset > scrollTop && scrollTop - clientHeight >= 0) {
             document.documentElement.style.setProperty(
               '--fuck-it',
               `${scrollTop - clientHeight}px`
             );
+          } else {
+            document.documentElement.style.setProperty('--fuck-it', `${0}px`);
+          }
         }
       }
     });
