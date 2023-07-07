@@ -1,5 +1,5 @@
 // import App from 'next/app'
-import '../index.css';
+// import '../index.css';
 import useHasMounted from 'components/utils/useHasMounted';
 import { toggleTheme } from 'components/ThemeContext';
 
